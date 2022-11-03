@@ -1,14 +1,13 @@
 const nt = require('express').Router();
 const fs = require('fs');
-const uuid = require('../helpers/uuid')
+const uuid = require('../helpers/uuid');
 
-const app = express();
 
-app.get('/api/notes', (req, res) =>{
-  readFromFile('../db\db.json').then((data) => res.json(JSON.parse(data)))
+nt.get('/notes', (req, res) =>{
+  readFromFile('../db/db.json').then((data) => res.json(JSON.parse(data)))
 });
 
-app.post('/api/notes', (req, res) => {
+nt.post('/notes', (req, res) => {
     console.info(`${req.method} request received to add a note`);
   
     const { title, text  } = req.body;
@@ -21,7 +20,7 @@ app.post('/api/notes', (req, res) => {
       };
   
       // Obtain existing notes
-      fs.readFile('../db\db.json', 'utf8', (err, data) => {
+      fs.readFile('../db/db.json', 'utf8', (err, data) => {
         if (err) {
           console.error(err);
         } else {
@@ -29,7 +28,7 @@ app.post('/api/notes', (req, res) => {
   
           parsednotes.push(newnote);
           fs.writeFile(
-            '../db\db.json',
+            '../db/db.json',
             JSON.stringify(parsednotes, null, 4),
             (writeErr) =>
               writeErr
@@ -51,4 +50,4 @@ app.post('/api/notes', (req, res) => {
     }
   });
 
-  module.exports = nt
+  module.exports = nt;

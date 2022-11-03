@@ -1,9 +1,8 @@
 const html = require('express').Router();
+const path = require('path');
 
-const app = express();
-
-app.get('/', (req, res) =>
+html.get('/', (req, res) =>
   res.sendFile(path.join(__dirname, '../public/notes.html'))
 );
 
-module.exports = html
+module.exports = html;
